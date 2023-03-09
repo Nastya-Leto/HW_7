@@ -2,6 +2,7 @@ import Pages.RegistrationPage;
 import org.junit.jupiter.api.Test;
 
 public class FormTest extends TestBase {
+    RegistrationPage registrationPage = new RegistrationPage();
 
     @Test
     void fillFormTest() {
