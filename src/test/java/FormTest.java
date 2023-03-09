@@ -1,22 +1,7 @@
 import Pages.RegistrationPage;
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
-
-
-public class FormTest {
-    RegistrationPage registrationPage = new RegistrationPage();
-
-    @BeforeAll
-    static void beforeAll() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.holdBrowserOpen = true;
-
-    }
+public class FormTest extends TestBase {
 
     @Test
     void fillFormTest() {
@@ -24,43 +9,41 @@ public class FormTest {
                 userLastName = "Zak",
                 Email = "stasia-oops@yandex.ru",
                 gender = "Female",
-                Phone = "8927111111";
+                Phone = "8927111111",
+                Subjects = "Arts",
+                Hobbies = "Music",
+                State = "NCR",
+                City = "Noida",
+                Address = "Samara",
+                File = "pictures/img1.png";
 
         new RegistrationPage().openPage()
                 .setFirstName(userName)
                 .setLastName(userLastName)
                 .setEMail(Email)
                 .setGender(gender)
-                .setPhone(Phone);
+                .setPhone(Phone)
+                .setBirthDate("27", "May", "1991")
+                .setSubjects(Subjects)
+                .setHobbies(Hobbies)
+                .setAddress(Address)
+                .setState(State)
+                .setCity(City)
+                .addFile(File)
+                .setSubmit();
 
 
-        $(".react-datepicker-wrapper").click();
-        $(".react-datepicker__year-select").$(byText("1991")).click();
-        $(".react-datepicker__month-select").$(byText("June")).click();
-        $(".react-datepicker__day.react-datepicker__day--027").click();
+        registrationPage.verifyResultsModalAppears()
+                .verifyResults("Student Name", "Zak Anastasiya")
+                .verifyResults("Student Email", "stasia-oops@yandex.ru")
+                .verifyResults("Gender", "Female")
+                .verifyResults("Mobile", "8927111111")
+                .verifyResults("Date of Birth", "27 May,1991")
+                .verifyResults("Subjects", "Arts")
+                .verifyResults("Hobbies", "Music")
+                .verifyResults("Picture", "img1.png")
+                .verifyResults("Address", "Samara")
+                .verifyResults("State and City", "NCR Noida");
 
-        $("#subjectsInput").setValue("Arts").pressEnter();
-        $("#hobbiesWrapper").$(byText("Music")).click();
-        ;
-        $("#uploadPicture").uploadFromClasspath("pictures/img1.png");
-        $("[id=currentAddress]").setValue("SamaraSamaraSamaraSamaraSamaraSamaraSamara");
-        $("#state").click();
-        $("#stateCity-wrapper").$(byText("NCR")).click();
-        $("#city").click();
-        $("#stateCity-wrapper").$(byText("Noida")).click();
-        $("#submit").click();
-
-
-        $(".table-responsive").shouldHave(
-                text("Zak Anastasiya"),
-                text("stasia-oops@yandex.ru"),
-                text("Female"),
-                text("8927111111"),
-                text("27 May,1991"),
-                text("Arts"),
-                text("Music"),
-                text("img1.png"),
-                text("SamaraSamaraSamaraSamaraSamaraSamaraSamara"),
-                text("NCR Noida"));
     }
 }
