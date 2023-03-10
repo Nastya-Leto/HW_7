@@ -1,4 +1,4 @@
-import Pages.RegistrationPage;
+import pages.RegistrationPage;
 import org.junit.jupiter.api.Test;
 
 public class FormTest extends TestBase {
@@ -8,29 +8,30 @@ public class FormTest extends TestBase {
     void fillFormTest() {
         String userName = "Anastasiya",
                 userLastName = "Zak",
-                Email = "stasia-oops@yandex.ru",
+                email = "stasia-oops@yandex.ru",
                 gender = "Female",
-                Phone = "8927111111",
-                Subjects = "Arts",
-                Hobbies = "Music",
-                State = "NCR",
-                City = "Noida",
-                Address = "Samara",
-                File = "pictures/img1.png";
+                phone = "8927111111",
+                subjects = "Arts",
+                hobbies = "Music",
+                state = "NCR",
+                city = "Noida",
+                address = "Samara",
+                file = "pictures/img1.png";
 
         new RegistrationPage().openPage()
+                .closeBanner()
                 .setFirstName(userName)
                 .setLastName(userLastName)
-                .setEMail(Email)
+                .setEMail(email)
                 .setGender(gender)
-                .setPhone(Phone)
+                .setPhone(phone)
                 .setBirthDate("27", "May", "1991")
-                .setSubjects(Subjects)
-                .setHobbies(Hobbies)
-                .setAddress(Address)
-                .setState(State)
-                .setCity(City)
-                .addFile(File)
+                .setSubjects(subjects)
+                .setHobbies(hobbies)
+                .setAddress(address)
+                .setState(state)
+                .setCity(city)
+                .addFile(file)
                 .setSubmit();
 
 

@@ -1,7 +1,7 @@
-package Pages;
+package pages;
 
-import Pages.components.CalendarComponent;
-import Pages.components.RegistrarionResultsModal;
+import pages.components.CalendarComponent;
+import pages.components.RegistrarionResultsModal;
 import com.codeborne.selenide.Condition;
 
 import static com.codeborne.selenide.Selectors.byText;
@@ -17,6 +17,11 @@ public class RegistrationPage {
     public RegistrationPage openPage() {
         open("https://demoqa.com/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(Condition.text(TITLE_TEXT));
+        return this;
+    }
+
+
+    public RegistrationPage closeBanner() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
         return this;
